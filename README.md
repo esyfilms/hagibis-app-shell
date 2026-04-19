@@ -1,4 +1,4 @@
-# Hagibis App Shell
+# Market Insights and News Dashboard (Hagibis App Shell)
 
 A compact market-and-news dashboard built for the Hagibis 3.5-inch mini screen.
 
