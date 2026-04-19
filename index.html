@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hagibis Control Shell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Doto:wght@400..700&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="preview-shell">
+      <div class="device-stage-shell" id="deviceStageShell">
+        <div class="device-stage" id="deviceStage">
+          <div class="app-frame">
+            <header class="topbar">
+              <div>
+                <p class="eyebrow">Hagibis Mini Screen</p>
+                <h1>Market Home</h1>
+              </div>
+              <div class="topbar-meta">
+                <p class="status-copy" id="statusCopy">7 items max · 3 hero slots · 4 watchlist slots</p>
+                <button id="openSettingsBtn" class="ghost-btn" type="button">Settings</button>
+              </div>
+            </header>
+
+            <main class="dashboard-grid">
+              <section class="hero-panel panel">
+                <div class="panel-header">
+                  <p class="panel-kicker">Hero Markets</p>
+                  <p class="panel-note" id="heroWindowLabel">1/3 · Rotating</p>
+                </div>
+                <div class="hero-row">
+                  <div class="hero-copy">
+                    <p class="hero-symbol" id="heroSymbol">BTC</p>
+                    <p class="hero-value" id="heroValue">$72.4K</p>
+                    <p class="hero-change"><span id="heroPeriod">24H</span> <strong id="heroChange">+3.8%</strong></p>
+                  </div>
+                  <div class="hero-trend-box" aria-hidden="true">
+                    <p class="trend-kicker">24H trend</p>
+                    <div class="bars" id="heroBars"></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="watchlist-panel panel">
+                <div class="panel-header">
+                  <p class="panel-kicker">Watchlist</p>
+                  <p class="panel-note" id="watchlistWindowLabel">2 visible · 4 saved</p>
+                </div>
+                <div class="watchlist-rows" id="watchlistRows"></div>
+              </section>
+
+              <section class="brief-panel panel" id="briefPanel" role="link" tabindex="0" aria-label="Open current article">
+                <div class="panel-header">
+                  <p class="panel-kicker">AI Brief</p>
+                  <p class="panel-note" id="briefTime">1/3 · Demo feed</p>
+                </div>
+                <div class="brief-story" id="briefStory">
+                  <div class="brief-index" id="briefIndex">01</div>
+                  <div class="brief-copy">
+                    <h2 id="briefHeadline">Open-source video models accelerate again.</h2>
+                    <p id="briefSubline">Labs ship faster inference and edit flows.</p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="sentiment-panel panel">
+                <div class="panel-header">
+                  <p class="panel-kicker" id="sentimentLabel">Crypto Fear &amp; Greed</p>
+                  <p class="panel-note" id="sentimentSource">Alternative.me demo</p>
+                </div>
+                <div class="sentiment-body">
+                  <div class="gauge-copy">
+                    <p class="gauge-value" id="sentimentValue">68</p>
+                    <p class="gauge-classification" id="sentimentClassification">Greed</p>
+                  </div>
+                  <div class="gauge-track" aria-hidden="true">
+                    <div class="gauge-fill" id="gaugeFill"></div>
+                  </div>
+                </div>
+              </section>
+            </main>
+
+            <div class="settings-backdrop" id="settingsBackdrop" hidden>
+              <aside class="settings-panel" aria-labelledby="settingsTitle">
+                <div class="settings-header">
+                  <div>
+                    <p class="eyebrow">Configure Watchlist</p>
+                    <h2 id="settingsTitle">Tickers and order</h2>
+                  </div>
+                  <button id="closeSettingsBtn" class="ghost-btn" type="button">Close</button>
+                </div>
+
+                <section class="settings-section">
+                  <div class="section-head">
+                    <h3>Selected tickers</h3>
+                    <p id="selectedCount">0 / 7 assigned</p>
+                  </div>
+                  <p class="section-copy">Pick the exact three hero tickers and the exact four watchlist tickers. The dashboard only shows two watchlist rows at a time.</p>
+                  <div class="selection-groups">
+                    <div class="selection-group">
+                      <div class="section-head">
+                        <h3>Hero slots</h3>
+                        <p id="heroSelectionCount">0 / 3</p>
+                      </div>
+                      <ul class="selected-list" id="heroTickerList"></ul>
+                    </div>
+                    <div class="selection-group">
+                      <div class="section-head">
+                        <h3>Watchlist slots</h3>
+                        <p id="watchSelectionCount">0 / 4</p>
+                      </div>
+                      <ul class="selected-list" id="watchTickerList"></ul>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="settings-section">
+                  <div class="section-head">
+                    <h3>Add from library</h3>
+                    <p id="libraryStatusCopy">Watchlist · 7 total</p>
+                  </div>
+                  <div class="assign-toolbar" role="group" aria-label="Ticker target selection">
+                    <button id="assignHeroBtn" class="row-action" type="button">Target: Hero</button>
+                    <button id="assignWatchBtn" class="row-action" type="button">Target: Watchlist</button>
+                    <button id="assignCancelBtn" class="row-action" type="button">Cancel Selection</button>
+                  </div>
+                  <p class="section-copy" id="assignHint">Pick a target, then tap a ticker chip to assign it.</p>
+                  <div class="library-group">
+                    <div class="section-head">
+                      <h3>Crypto</h3>
+                      <p>Live now</p>
+                    </div>
+                    <div class="ticker-chip-grid" id="cryptoTickerLibrary"></div>
+                  </div>
+                  <div class="library-group" id="stockLibrarySection">
+                    <div class="section-head">
+                      <h3>Stocks</h3>
+                      <p id="stockLibraryStatus">Live now</p>
+                    </div>
+                    <div class="ticker-chip-grid" id="stockTickerLibrary"></div>
+                  </div>
+                </section>
+
+                <section class="settings-section">
+                  <div class="section-head">
+                    <h3>Add custom ticker</h3>
+                    <p id="customTargetCopy">Watchlist target</p>
+                  </div>
+                  <form id="customTickerForm" class="custom-form">
+                    <input id="customTickerInput" type="text" maxlength="10" placeholder="For example: DOGE or AAPL" />
+                    <button id="customTickerSubmit" class="primary-btn" type="submit">Add to Watchlist</button>
+                  </form>
+                </section>
+
+                <section class="settings-section">
+                  <div class="section-head">
+                    <h3>Hero rotation</h3>
+                  </div>
+                  <label class="toggle-row">
+                    <span>Rotate through the first 3 selected tickers in the hero module</span>
+                    <input id="rotationToggle" type="checkbox" />
+                  </label>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>

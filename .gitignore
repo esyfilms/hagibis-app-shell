@@ -1,0 +1,5 @@
+.DS_Store
+.codex/
+.env.local
+dist/
+native-shell/build/
